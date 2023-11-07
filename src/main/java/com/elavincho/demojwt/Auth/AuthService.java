@@ -1,5 +1,6 @@
 package com.elavincho.demojwt.Auth;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.elavincho.demojwt.Jwt.JwtService;
@@ -15,6 +16,7 @@ public class AuthService {
 
     private final UserRepository userRepository;
     private final JwtService jwtService;
+    private final PasswordEncoder passwordEncoder;
 
     public AuthResponse login(LoginRequest request) {
         return null;
@@ -23,7 +25,7 @@ public class AuthService {
     public AuthResponse register(RegisterRequest request) {
         User user = User.builder()
             .username(request.getUsername())
-            .password(request.getPassword())
+            .password(passwordEncoder.encode(request.getPassword()))
             .firstname(request.getFirstname())
             .lastname(request.getLastname())
             .country(request.getCountry())
