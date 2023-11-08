@@ -10,7 +10,7 @@ import org.springframework.security.web.SecurityFilterChain;
 //import static org.springframework.security.config.Customizer.withDefaults;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.elavincho.demojwt.Jwt.JwtAutenticationFilter;
+import com.elavincho.demojwt.Jwt.JwtAuthenticationFilter;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +19,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    public final JwtAutenticationFilter jwtAutenticationFilter;
+    public final JwtAuthenticationFilter jwtAuthenticationFilter;
     public final AuthenticationProvider authProvider;
     
     @Bean
@@ -34,10 +34,10 @@ public class SecurityConfig {
             .anyRequest().authenticated()
             )
         .sessionManagement(sessionManager ->
-        sessionManager
-            .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            sessionManager
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authenticationProvider(authProvider)
-        .addFilterBefore(jwtAutenticationFilter, UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
         .build();
     }
 }
